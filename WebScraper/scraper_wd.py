@@ -1,0 +1,1 @@
+#usando wikidata, parece ser mais fácil
