@@ -13,8 +13,11 @@ WHERE {
   ?pessoa wdt:P569 ?nascimento.
   ?pessoa wdt:P570 ?morte.
   ?pessoa wdt:P19 ?nacionalidade.
-  
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+ 
+  SERVICE wikibase:label { 
+    bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". 
+  }
+}
   """
 
 r = requests.get(url, params = {'format': 'json', 'query': query})
