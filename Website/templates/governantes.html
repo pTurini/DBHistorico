@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for gov in govs %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h2><a class="article-title" href="#">{{ gov.nome_governante }}</a></h2>
+            <p class="article-content">Líder</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

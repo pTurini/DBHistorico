@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+{% block content %}
+    {% for part in parts %}
+        <article class="media content-section">
+          <div class="media-body">
+            <h2><a class="article-title" href="#">{{ part.nome_partido }}</a></h2>
+            <p class="article-content">Partido</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
