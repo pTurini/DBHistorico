@@ -2,14 +2,33 @@ CREATE TABLE governante (
     id_governante INT PRIMARY KEY,
     nome_governante VARCHAR(30),
     data_nasc DATE,
-    data_morte DATE
+    data_morte DATE,
+    id_partido INT
 );
+
+CREATE TABLE partido (
+	id_partido INT PRIMARY KEY,
+    nome_partido VARCHAR(50),
+    data_fundacao DATE
+);
+
+ALTER TABLE governante 
+ADD FOREIGN KEY (id_partido) 
+REFERENCES partido (id_partido) 
+ON DELETE SET NULL;
 
 CREATE TABLE pais (
     id_pais INT PRIMARY KEY,
     nome_pais VARCHAR(30),
     continente VARCHAR(30),
     poulacao_milh FLOAT
+);
+
+CREATE TABLE conflito (
+    id_conflito INT PRIMARY KEY,
+    nome_conflito VARCHAR(50),
+    data_inicio DATE,
+    data_fim DATE
 );
 
 CREATE TABLE lideranca (
@@ -21,5 +40,17 @@ CREATE TABLE lideranca (
         ON DELETE CASCADE,
     FOREIGN KEY (id_governante)
         REFERENCES governante (id_governante)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE envolvimento (
+    id_pais INT,
+    id_conflito INT,
+    PRIMARY KEY (id_pais , id_conflito),
+    FOREIGN KEY (id_pais)
+        REFERENCES pais (id_pais)
+        ON DELETE CASCADE,
+	FOREIGN KEY (id_conflito)
+        REFERENCES conflito (id_conflito)
         ON DELETE CASCADE
 );
