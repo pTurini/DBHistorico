@@ -42,20 +42,14 @@ CREATE TABLE imagem_pais (
 
 CREATE TABLE pais (
     id_pais INT PRIMARY KEY,
-	id_img_pais INT ,
     nome_pais VARCHAR(30),
     continente VARCHAR(30),
     poulacao_milh FLOAT,
-    id_img_part INT,
+	id_img_pais INT ,
     FOREIGN KEY (id_img_pais)
 		REFERENCES imagem_pais (id_img_pais)
 		ON DELETE CASCADE
 );
-
-ALTER TABLE pais 
-ADD FOREIGN KEY (id_img_pais) 
-	REFERENCES imagem_pais (id_img_pais) 
-		ON DELETE SET NULL;
 
 CREATE TABLE conflito (
     id_conflito INT PRIMARY KEY,
@@ -73,7 +67,9 @@ CREATE TABLE lideranca (
         ON DELETE CASCADE,
     FOREIGN KEY (id_governante)
         REFERENCES governante (id_governante)
-        ON DELETE CASCADE
+        ON DELETE CASCADE,
+	data_inicio_lid DATE,
+	data_fim_lid DATE
 );
 
 CREATE TABLE envolvimento (
