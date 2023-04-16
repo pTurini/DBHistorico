@@ -33,7 +33,7 @@ class Pais(db.Model):
     id_pais = db.Column(db.Integer, primary_key=True)
     nome_pais = db.Column(db.String(30))
     continente = db.Column(db.String(30))
-    populacao = db.Column(db.Float)
+    populacao_milh = db.Column(db.Float)
 
     def __repr__(self):
         return (
@@ -53,35 +53,49 @@ class Conflito(db.Model):
             f"'{self.data_inicio}', '{self.data_fim}')"
         )
 
-posts = [
-    {
-        'author': 'Joao',
-        'title': 'Blog Post 1',
-        'content': 'First post content!',
-        'date_posted': 'April 15 2023'
-    },
-    {
-        'author': 'Jose',
-        'title': 'Blog Post 2',
-        'content': 'Second post content!',
-        'date_posted': 'April 2 2023'
-    },
-]
-
 @app.route("/")
-@app.route("/home")
 def home():
-    return render_template("home.html", posts=posts)
+    return "Hello world!"
 
 @app.route("/gov")
-def govs():
-    govs = Governante.query.all()
-    return render_template("governantes.html", govs=govs)
+@app.route("/gov/<id>")
+def govs(id=""):
+    if id:
+        gov = Governante.query.filter_by(id_governante=id).first()
+        return f"Page for {gov.nome_governante}"
+    else:
+        govs = Governante.query.all()
+        return render_template("governantes.html", govs=govs)
 
-@app.route("/part")
-def parts():
-    parts = Partido.query.all()
-    return render_template("partidos.html", parts=parts)
+@app.route("/partido")
+@app.route("/partido/<id>")
+def parts(id=""):
+    if id:
+        partido = Partido.query.filter_by(id_partido=id).first()
+        return f"Page for {partido.nome_partido}"
+    else:
+        partidos = Partido.query.all()
+        return render_template("partidos.html", partidos=partidos)
+
+@app.route("/pais")
+@app.route("/pais/<id>")
+def paises(id=""):
+    if id:
+        pais = Partido.query.filter_by(id_pais=id).first()
+        return f"Page for {pais.nome_pais}"
+    else:
+        paises = Pais.query.all()
+        return render_template("paises.html", paises=paises)
+
+@app.route("/conflito")
+@app.route("/conflito/<id>")
+def conflitos(id=""):
+    if id:
+        conflito = Conflito.query.filter_by(id_conflito=id).first()
+        return f"Page for {conflito.nome_conflito}"
+    else:
+        conflitos = Conflito.query.all()
+        return render_template("conflitos.html", conflitos=conflitos)
 
 if __name__ == '__main__':
     app.run(debug=True)

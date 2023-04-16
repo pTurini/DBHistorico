@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for gov in govs %}
+    {% for pais in paises %}
         <article class="media content-section">
           <div class="media-body">
-            <h2><a class="article-title" href="gov/{{ gov.id_governante }}">{{ gov.nome_governante }}</a></h2>
-            <p class="article-content">Líder</p>
+            <h2><a class="article-title" href="pais/{{ pais.id_pais }}">{{ pais.nome_pais }}</a></h2>
+            <p class="article-content">País</p>
           </div>
         </article>
     {% endfor %}

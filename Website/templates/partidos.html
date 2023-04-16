@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for part in parts %}
+    {% for part in partidos %}
         <article class="media content-section">
           <div class="media-body">
-            <h2><a class="article-title" href="#">{{ part.nome_partido }}</a></h2>
+            <h2><a class="article-title" href="partido/{{ part.id_partido }}">{{ part.nome_partido }}</a></h2>
             <p class="article-content">Partido</p>
           </div>
         </article>

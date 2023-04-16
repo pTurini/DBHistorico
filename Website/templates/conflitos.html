@@ -1,10 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for gov in govs %}
+    {% for conf in conflitos %}
         <article class="media content-section">
           <div class="media-body">
-            <h2><a class="article-title" href="gov/{{ gov.id_governante }}">{{ gov.nome_governante }}</a></h2>
-            <p class="article-content">Líder</p>
+            <h2><a class="article-title" href="conflito/{{ conf.id_conflito }}">{{ conf.nome_conflito }}</a></h2>
+            <p class="article-content">Conflito</p>
           </div>
         </article>
     {% endfor %}
