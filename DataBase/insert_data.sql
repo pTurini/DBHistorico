@@ -27,7 +27,6 @@ INSERT INTO pais VALUES( 11, 'Brasil', 'América', 213.3, 11);
 
 -- INSERT INTO governante ALL
 
-INSERT INTO governantes VALUES( '', 'id_governante', 'nome_governante', 'data_morte', 'data_nasc', 'id_partido'); 
 INSERT INTO governante VALUES( 1, 'Ho Chi Minh', '1969-09-02', '1890-05-19', 1, 1);
 INSERT INTO governante VALUES( 2, 'Harry S. Truman', '1972-12-26', '1884-05-08', 2, 2);
 INSERT INTO governante VALUES( 3, 'Mao Zedong', '1976-09-09', '1893-12-26', 3, 3);

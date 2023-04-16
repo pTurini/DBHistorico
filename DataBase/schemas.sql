@@ -1,6 +1,6 @@
 CREATE TABLE imagem_governante (
 	id_img_gov INT PRIMARY KEY,
-    img_gov BLOB
+    img_gov MEDIUMBLOB
     );
 
 CREATE TABLE governante (
@@ -17,7 +17,7 @@ CREATE TABLE governante (
 
 CREATE TABLE imagem_partido (
 	id_img_part INT PRIMARY KEY,
-    img_part BLOB
+    img_part MEDIUMBLOB
 );
 
 CREATE TABLE partido (
@@ -37,7 +37,7 @@ ADD FOREIGN KEY (id_partido)
 
 CREATE TABLE imagem_pais (
 	id_img_pais INT PRIMARY KEY,
-    img_pais BLOB
+    img_pais MEDIUMBLOB
 );
 
 CREATE TABLE pais (
@@ -59,8 +59,8 @@ CREATE TABLE conflito (
 );
 
 CREATE TABLE lideranca (
-    id_pais INT,
     id_governante INT,
+    id_pais INT,
     PRIMARY KEY (id_pais , id_governante),
     FOREIGN KEY (id_pais)
         REFERENCES pais (id_pais)
