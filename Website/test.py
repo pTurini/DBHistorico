@@ -1,22 +1,10 @@
 from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import text
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI']="mysql://bdsite:letmein@localhost/bdhist?charset=utf8mb4"
 db = SQLAlchemy(app)
-
-class Governante(db.Model):
-    id_governante = db.Column(db.Integer, primary_key=True)
-    nome_governante = db.Column(db.String(30))
-    data_nasc = db.Column(db.DateTime)
-    data_morte = db.Column(db.DateTime)
-    id_partido = db.Column(db.Integer, db.ForeignKey('partido.id_partido'))
-
-    def __repr__(self):
-        return (
-            f"Governante('{self.id_governante}', '{self.nome_governante}', "
-            f"'{self.data_nasc}', '{self.data_morte}', '{self.id_partido}')"
-        )
 
 class Partido(db.Model):
     id_partido = db.Column(db.Integer, primary_key=True)
@@ -38,7 +26,7 @@ class Pais(db.Model):
     def __repr__(self):
         return (
             f"Pais('{self.id_pais}', '{self.nome_pais}',"
-            f"'{self.continente}', '{self.populacao}'"
+            f"'{self.continente}', '{self.populacao_milh})'"
         )
 
 class Conflito(db.Model):
@@ -53,48 +41,196 @@ class Conflito(db.Model):
             f"'{self.data_inicio}', '{self.data_fim}')"
         )
 
+class Lideranca(db.Model):
+    id_governante = db.Column(db.Integer,
+        db.ForeignKey('governante.id_governante'), primary_key=True)
+    id_pais = db.Column(db.Integer, db.ForeignKey('pais.id_pais'),
+        primary_key=True)
+
 @app.route("/")
 def home():
-    return "Hello world!"
+    return render_template("home.html")
 
 @app.route("/gov")
 @app.route("/gov/<id>")
 def govs(id=""):
     if id:
-        gov = Governante.query.filter_by(id_governante=id).first()
-        return f"Page for {gov.nome_governante}"
+        img_src = url_for('static', filename='assets/user-icon.png')
+
+        query_gov = text("""
+            SELECT * FROM  governante
+            WHERE id_governante=:id;
+        """)
+        gov = db.session.execute(query_gov, {"id":id}).first()
+
+        query_pais = text("""
+            SELECT 
+                pais.*
+            FROM
+                pais
+                    JOIN
+                lideranca
+            WHERE
+                lideranca.id_pais = pais.id_pais
+                    AND 
+                lideranca.id_governante = :id;
+        """)
+        paises = db.session.execute(query_pais, {"id":id}).all()
+
+        query_partido = text("""
+            SELECT
+                partido.nome_partido, partido.id_partido
+            FROM
+                partido
+            WHERE
+                id_partido = :idp;
+        """)
+        idp = gov.id_partido
+        partido = db.session.execute(query_partido,{"idp":gov.id_partido}).first()
+
+        return render_template("governante_details.html", img_src=img_src,
+                               gov=gov, paises=paises, partido=partido)
     else:
-        govs = Governante.query.all()
+        query_govs = text("""
+            SELECT
+                *
+            FROM
+                governante
+            ORDER BY
+                nome_governante;
+        """)
+        govs = db.session.execute(query_govs).all()
+
         return render_template("governantes.html", govs=govs)
 
 @app.route("/partido")
 @app.route("/partido/<id>")
 def parts(id=""):
     if id:
-        partido = Partido.query.filter_by(id_partido=id).first()
-        return f"Page for {partido.nome_partido}"
+        query_prt = text("""
+            SELECT
+                *
+            FROM
+                partido
+            WHERE
+                id_partido = :id;
+        """)
+        partido = db.session.execute(query_prt, {"id":id}).first()
+
+        query_membros = text("""
+            SELECT 
+                *
+            FROM
+                governante
+            WHERE
+                id_partido = :id;
+        """)
+        membros = db.session.execute(query_membros, {"id":id}).all()
+
+        return render_template("partido_details.html", partido=partido,
+                   membros=membros)
     else:
-        partidos = Partido.query.all()
+        query_partidos = text("""
+            SELECT
+                *
+            FROM
+                partido;
+        """)
+        partidos = db.session.execute(query_partidos).all()
+
         return render_template("partidos.html", partidos=partidos)
 
 @app.route("/pais")
 @app.route("/pais/<id>")
 def paises(id=""):
     if id:
-        pais = Partido.query.filter_by(id_pais=id).first()
-        return f"Page for {pais.nome_pais}"
+        query_pais = text(""" 
+            SELECT
+                *
+            FROM
+                pais
+            WHERE
+                pais.id_pais = :id;
+        """)
+        pais = db.session.execute(query_pais,{"id":id}).first()
+
+        query_govs = text("""
+            SELECT 
+                governante.*
+            FROM
+                governante
+                    JOIN
+                lideranca
+            WHERE
+                governante.id_governante = lideranca.id_governante
+                AND lideranca.id_pais = :id;
+        """)
+        govs = db.session.execute(query_govs,{"id":id}).all()
+
+        query_conflitos= text("""
+            SELECT 
+                conflito.*
+            FROM
+                conflito
+                    JOIN
+                envolvimento
+            WHERE
+                envolvimento.id_conflito = conflito.id_conflito
+                AND envolvimento.id_pais = :id;
+        """)
+        conflitos = db.session.execute(query_conflitos,{"id":id}).all()
+
+        return render_template("pais_details.html", pais=pais, govs=govs,
+                               conflitos=conflitos)
     else:
-        paises = Pais.query.all()
+        query_paises = text("""
+            SELECT
+                *
+            FROM
+                pais;
+        """)
+        paises = db.session.execute(query_paises).all()
+
         return render_template("paises.html", paises=paises)
 
 @app.route("/conflito")
 @app.route("/conflito/<id>")
 def conflitos(id=""):
     if id:
-        conflito = Conflito.query.filter_by(id_conflito=id).first()
-        return f"Page for {conflito.nome_conflito}"
+        query_conflito = text("""
+            SELECT
+                *
+            FROM
+                conflito
+            WHERE
+                id_conflito=:id;
+        """)
+        conflito = db.session.execute(query_conflito,{"id":id}).first()
+
+        query_envols = text("""
+            SELECT 
+                pais.*
+            FROM
+                pais
+                    JOIN
+                envolvimento
+            WHERE
+                envolvimento.id_pais = pais.id_pais
+                AND envolvimento.id_conflito = :id;
+        """)
+        envols = db.session.execute(query_envols,{"id":id}).all()
+
+        return render_template("conflito_details.html", conflito=conflito,
+                   paises=envols)
     else:
-        conflitos = Conflito.query.all()
+        query_conflitos = text("""
+            SELECT
+                *
+            FROM
+                conflito;
+        """)
+        conflitos = db.session.execute(query_conflitos).all()
+
         return render_template("conflitos.html", conflitos=conflitos)
 
 if __name__ == '__main__':

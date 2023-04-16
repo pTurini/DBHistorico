@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ img_src }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ conflito.nome_conflito }}</h2>
+          <p class="text-secondary">Conflito</p>
+          <p class="text-secondary">Início: {{ conflito.data_inicio }}</p>
+          <p class="text-secondary">Fim: {{ conflito.data_fim }}</p>
+        </div>
+      </div>
+    </div>
+    {% if paises %}
+        <h1 class="related-heading">Países envolvidos:</h1>
+        {% for pais in paises %}
+            <article class="media content-section">
+              <div class="media-body">
+                <h2><a class="article-title" href="/pais/{{ pais.id_pais }}">{{ pais.nome_pais }}</a></h2>
+                <p class="article-content">País</p>
+              </div>
+            </article>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

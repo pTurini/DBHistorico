@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ img_src }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ pais.nome_pais }}</h2>
+          <p class="text-secondary">País</p>
+          <p class="text-secondary">Continente: {{ pais.continente }}</p>
+          <p class="text-secondary">População: {{ pais.populacao_milh }} milhões</p>
+        </div>
+      </div>
+    </div>
+    {% if govs %}
+        <h1 class="related-heading">Governantes:</h1>
+        {% for g in govs %}
+            <article class="media content-section">
+              <div class="media-body">
+                <h2><a class="article-title" href="/gov/{{ g.id_governante}}">{{ g.nome_governante }}</a></h2>
+                <p class="article-content">Governante</p>
+              </div>
+            </article>
+        {% endfor %}
+    {% endif %}
+    {% if conflitos %}
+        <h1 class="related-heading">Conflitos:</h1>
+        {% for c in conflitos %}
+            <article class="media content-section">
+              <div class="media-body">
+                <h2><a class="article-title" href="/conflito/{{ c.id_conflito }}">{{ c.nome_conflito }}</a></h2>
+                <p class="article-content">Conflito</p>
+              </div>
+            </article>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

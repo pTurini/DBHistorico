@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ img_src }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ gov.nome_governante }}</h2>
+          <p class="text-secondary">Governante</p>
+          <p class="text-secondary">Nascimento: {{ gov.data_nasc }}</p>
+          <p class="text-secondary">Morte: {{ gov.data_morte }}</p>
+        </div>
+      </div>
+    </div>
+    {% if partido %}
+        <h1 class="related-heading">Facção política:</h1>
+            <article class="media content-section">
+              <div class="media-body">
+                <h2>
+                    <a class="article-title" href="/partido/{{ partido.id_partido }}">
+                        {{ partido.nome_partido }}
+                    </a>
+                </h2>
+                <p class="article-content">Partido</p>
+              </div>
+            </article>
+    {% endif %}
+    {% if paises %}
+        <h1 class="related-heading">Países relacionados:</h1>
+        {% for pais in paises %}
+            <article class="media content-section">
+              <div class="media-body">
+                <h2><a class="article-title" href="/pais/{{ pais.id_pais }}">{{ pais.nome_pais }}</a></h2>
+                <p class="article-content">País</p>
+              </div>
+            </article>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}

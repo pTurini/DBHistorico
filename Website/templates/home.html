@@ -1,11 +1,33 @@
 {% extends "layout.html" %}
 {% block content %}
-    {% for post in posts %}
-        <article class="media content-section">
-          <div class="media-body">
-            <h2><a class="article-title" href="#">{{ post.title }}</a></h2>
-            <p class="article-content">{{ post.content }}</p>
-          </div>
-        </article>
-    {% endfor %}
+    <h1>Categorias:</h1>
+
+    <article class="media content-section">
+      <div class="media-body">
+        <h2><a class="article-title" href="/gov">Governantes</a></h2>
+        <p class="article-content">Lista de líderes mundiais históricos</p>
+      </div>
+    </article>
+
+
+    <article class="media content-section">
+      <div class="media-body">
+        <h2><a class="article-title" href="/pais">Países</a></h2>
+        <p class="article-content">Lista de países</p>
+      </div>
+    </article>
+
+    <article class="media content-section">
+      <div class="media-body">
+        <h2><a class="article-title" href="/partido">Facções Políticas</a></h2>
+        <p class="article-content">Lista de grupos políticos</p>
+      </div>
+    </article>
+
+    <article class="media content-section">
+      <div class="media-body">
+        <h2><a class="article-title" href="/conflito">Conflitos</a></h2>
+        <p class="article-content">Lista de conflitos históricos</p>
+      </div>
+    </article>
 {% endblock content %}

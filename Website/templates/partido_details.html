@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ img_src }}">
+        <div class="media-body">
+          <h2 class="account-heading">{{ partido.nome_partido }}</h2>
+          <p class="text-secondary">Facção Política</p>
+          <p class="text-secondary">Fundação: {{ partido.data_fundacao }}</p>
+        </div>
+      </div>
+    </div>
+    {% if membros %}
+        <h1 class="related-heading">Membros:</h1>
+        {% for m in membros %}
+            <article class="media content-section">
+              <div class="media-body">
+                <h2><a class="article-title" href="/gov/{{ m.id_governante}}">{{ m.nome_governante }}</a></h2>
+                <p class="article-content">Governante</p>
+              </div>
+            </article>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}
