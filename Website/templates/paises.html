@@ -2,6 +2,11 @@
 {% block content %}
     {% for pais in paises %}
         <article class="media content-section">
+          {% if pais.img_pais %} 
+              <img class="account-img" src="data:;base64,{{b64encode(pais.img_pais).decode("utf-8")}}">
+          {% else %} 
+              <img class="account-img" src="">
+          {% endif %}
           <div class="media-body">
             <h2><a class="article-title" href="pais/{{ pais.id_pais }}">{{ pais.nome_pais }}</a></h2>
             <p class="article-content">País</p>

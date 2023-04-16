@@ -1,51 +1,12 @@
 from flask import Flask, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import text
+from base64 import b64encode
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI']="mysql://bdsite:letmein@localhost/bdhist?charset=utf8mb4"
 db = SQLAlchemy(app)
-
-class Partido(db.Model):
-    id_partido = db.Column(db.Integer, primary_key=True)
-    nome_partido = db.Column(db.String(50))
-    data_fundacao = db.Column(db.DateTime)
-
-    def __repr__(self):
-        return (
-            f"Partido('{self.id_partido}', '{self.nome_partido}',"
-            f"'{self.data_fundacao}')"
-        )
-
-class Pais(db.Model):
-    id_pais = db.Column(db.Integer, primary_key=True)
-    nome_pais = db.Column(db.String(30))
-    continente = db.Column(db.String(30))
-    populacao_milh = db.Column(db.Float)
-
-    def __repr__(self):
-        return (
-            f"Pais('{self.id_pais}', '{self.nome_pais}',"
-            f"'{self.continente}', '{self.populacao_milh})'"
-        )
-
-class Conflito(db.Model):
-    id_conflito = db.Column(db.Integer, primary_key=True)
-    nome_conflito = db.Column(db.String(50))
-    data_inicio = db.Column(db.DateTime)
-    data_fim = db.Column(db.DateTime)
-
-    def __repr__(self):
-        return (
-            f"Conflito('{self.id_conflito}', '{self.nome_conflito}',"
-            f"'{self.data_inicio}', '{self.data_fim}')"
-        )
-
-class Lideranca(db.Model):
-    id_governante = db.Column(db.Integer,
-        db.ForeignKey('governante.id_governante'), primary_key=True)
-    id_pais = db.Column(db.Integer, db.ForeignKey('pais.id_pais'),
-        primary_key=True)
+app.jinja_env.globals.update(b64encode=b64encode) 
 
 @app.route("/")
 def home():
@@ -55,8 +16,6 @@ def home():
 @app.route("/gov/<id>")
 def govs(id=""):
     if id:
-        img_src = url_for('static', filename='assets/user-icon.png')
-
         query_gov = text("""
             SELECT * FROM  governante
             WHERE id_governante=:id;
@@ -88,16 +47,32 @@ def govs(id=""):
         idp = gov.id_partido
         partido = db.session.execute(query_partido,{"idp":gov.id_partido}).first()
 
-        return render_template("governante_details.html", img_src=img_src,
-                               gov=gov, paises=paises, partido=partido)
-    else:
-        query_govs = text("""
+        query_imagem = text("""
             SELECT
                 *
             FROM
+                imagem_governante
+            WHERE
+                id_img_gov = :idimg
+        """)
+        idimg = gov.id_img_gov
+        img_entity = db.session.execute(query_imagem, {"idimg":idimg}).first()
+
+        if img_entity.img_gov is None:
+            img_raw = None
+        else:
+            img_raw = b64encode(img_entity.img_gov).decode("utf-8")
+
+        return render_template("governante_details.html", gov=gov,
+                   paises=paises, partido=partido, img=img_raw)
+    else:
+        query_govs = text("""
+            SELECT 
+                    governante.*, imagem_governante.img_gov AS img_gov
+            FROM
                 governante
-            ORDER BY
-                nome_governante;
+                    LEFT JOIN
+                imagem_governante ON governante.id_img_gov = imagem_governante.id_img_gov;
         """)
         govs = db.session.execute(query_govs).all()
 
@@ -127,14 +102,32 @@ def parts(id=""):
         """)
         membros = db.session.execute(query_membros, {"id":id}).all()
 
-        return render_template("partido_details.html", partido=partido,
-                   membros=membros)
-    else:
-        query_partidos = text("""
+        query_imagem = text("""
             SELECT
                 *
             FROM
-                partido;
+                imagem_partido
+            WHERE
+                id_img_part = :idimg
+        """)
+        idimg = partido.id_img_part
+        img_entity = db.session.execute(query_imagem, {"idimg":idimg}).first()
+
+        if img_entity.img_part is None:
+            img_raw = None
+        else:
+            img_raw = b64encode(img_entity.img_part).decode("utf-8")
+
+        return render_template("partido_details.html", partido=partido,
+                   membros=membros, img=img_raw)
+    else:
+        query_partidos = text("""
+            SELECT 
+                partido.*, imagem_partido.img_part AS img_part
+            FROM
+                partido
+                    LEFT JOIN
+                imagem_partido ON partido.id_img_part = imagem_partido.id_img_part;
         """)
         partidos = db.session.execute(query_partidos).all()
 
@@ -180,14 +173,32 @@ def paises(id=""):
         """)
         conflitos = db.session.execute(query_conflitos,{"id":id}).all()
 
-        return render_template("pais_details.html", pais=pais, govs=govs,
-                               conflitos=conflitos)
-    else:
-        query_paises = text("""
+        query_imagem = text("""
             SELECT
                 *
             FROM
-                pais;
+                imagem_pais
+            WHERE
+                id_img_pais = :idimg
+        """)
+        idimg = pais.id_img_pais
+        img_entity = db.session.execute(query_imagem, {"idimg":idimg}).first()
+
+        if img_entity.img_pais is None:
+            img_raw = None
+        else:
+            img_raw = b64encode(img_entity.img_pais).decode("utf-8")
+
+        return render_template("pais_details.html", pais=pais, govs=govs,
+                               conflitos=conflitos, img=img_raw)
+    else:
+        query_paises = text("""
+            SELECT 
+                pais.*, imagem_pais.img_pais AS img_pais
+            FROM
+                pais
+                    LEFT JOIN
+                imagem_pais ON pais.id_img_pais = imagem_pais.id_img_pais;
         """)
         paises = db.session.execute(query_paises).all()
 

@@ -2,6 +2,11 @@
 {% block content %}
     {% for part in partidos %}
         <article class="media content-section">
+          {% if part.img_part %} 
+              <img class="account-img" src="data:;base64,{{b64encode(part.img_part).decode("utf-8")}}">
+          {% else %} 
+              <img class="account-img" src="">
+          {% endif %}
           <div class="media-body">
             <h2><a class="article-title" href="partido/{{ part.id_partido }}">{{ part.nome_partido }}</a></h2>
             <p class="article-content">Partido</p>

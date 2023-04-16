@@ -2,6 +2,11 @@
 {% block content %}
     {% for gov in govs %}
         <article class="media content-section">
+          {% if gov.img_gov %} 
+              <img class="account-img" src="data:;base64,{{b64encode(gov.img_gov).decode("utf-8")}}">
+          {% else %} 
+              <img class="account-img" src="">
+          {% endif %}
           <div class="media-body">
             <h2><a class="article-title" href="gov/{{ gov.id_governante }}">{{ gov.nome_governante }}</a></h2>
             <p class="article-content">Líder</p>
