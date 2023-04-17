@@ -69,8 +69,9 @@ a.article-title:hover {
 }
 
 .account-img {
-  height: 125px;
-  width: 125px;
+  object-fit: contain;
+  max-width: 150px;
+  max-height: 150px;
   margin-right: 20px;
   margin-bottom: 16px;
 }

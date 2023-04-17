@@ -12,7 +12,7 @@ CREATE TABLE governante (
     id_img_gov INT,
     FOREIGN KEY (id_img_gov) 
         REFERENCES imagem_governante (id_img_gov) 
-	ON DELETE CASCADE
+	ON DELETE SET NULL
 );
 
 CREATE TABLE imagem_partido (
@@ -27,7 +27,7 @@ CREATE TABLE partido (
     id_img_part INT,
     FOREIGN KEY (id_img_part) 
         REFERENCES imagem_partido (id_img_part) 
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 );
 
 ALTER TABLE governante
@@ -48,7 +48,7 @@ CREATE TABLE pais (
     id_img_pais INT,
     FOREIGN KEY (id_img_pais)
         REFERENCES imagem_pais (id_img_pais)
-        ON DELETE CASCADE
+        ON DELETE SET NULL
 );
 
 CREATE TABLE conflito (
