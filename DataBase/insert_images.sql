@@ -28,16 +28,16 @@ INSERT INTO imagem_pais VALUES( 9, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/
 INSERT INTO imagem_pais VALUES( 10, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Paises/franca.png'));
 INSERT INTO imagem_pais VALUES( 11, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Paises/brasil.png'));
 
--- PARTIDO NOK
+-- PARTIDO OK
 
-INSERT INTO imagem_partido VALUES( 1, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_vietna_comunista'));
-INSERT INTO imagem_partido VALUES( 2, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_eua_democrata'));
-INSERT INTO imagem_partido VALUES( 3, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_china_comunista'));
-INSERT INTO imagem_partido VALUES( 4, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_eua_republicano'));
-INSERT INTO imagem_partido VALUES( 5, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_iraque_baath'));
-INSERT INTO imagem_partido VALUES( 6, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_coreia_trab'));
-INSERT INTO imagem_partido VALUES( 7, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_ira_republicano'));
-INSERT INTO imagem_partido VALUES( 8, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_israel_trabalhista'));
-INSERT INTO imagem_partido VALUES( 9, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_uniao_sov_comunista'));
-INSERT INTO imagem_partido VALUES( 10, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_franca_demo_republicano'));
-INSERT INTO imagem_partido VALUES( 11, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/hors.jpg'));-- /part_brasil_trab'));
+INSERT INTO imagem_partido VALUES( 1, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_vietna_comunista.png'));
+INSERT INTO imagem_partido VALUES( 2, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_eua_democrata.png'));
+INSERT INTO imagem_partido VALUES( 3, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_china_comunista.png'));
+INSERT INTO imagem_partido VALUES( 4, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_eua_republicano.png'));
+INSERT INTO imagem_partido VALUES( 5, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_iraque_baath.png'));
+INSERT INTO imagem_partido VALUES( 6, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_coreia_n_trab.png'));
+INSERT INTO imagem_partido VALUES( 7, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_ira_republicano.png'));
+INSERT INTO imagem_partido VALUES( 8, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_israel_trabalhista.png'));
+INSERT INTO imagem_partido VALUES( 9, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_uniao_sov_comunista.png'));
+INSERT INTO imagem_partido VALUES( 10, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_franca_demo_republicano.png'));
+INSERT INTO imagem_partido VALUES( 11, LOAD_FILE('C:/Users/victo/Desktop/USP/2023/1/bancoDados/DBHistorico/Images/Partido/part_brasil_trab.png'));
