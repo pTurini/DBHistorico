@@ -44,8 +44,8 @@ CREATE TABLE pais (
     id_pais INT PRIMARY KEY,
     nome_pais VARCHAR(30),
     continente VARCHAR(30),
-    poulacao_milh FLOAT,
-	id_img_pais INT ,
+    populacao_milh FLOAT,
+    id_img_pais INT,
     FOREIGN KEY (id_img_pais)
 		REFERENCES imagem_pais (id_img_pais)
 		ON DELETE CASCADE
