@@ -11,32 +11,32 @@ CREATE TABLE governante (
     id_partido INT,
     id_img_gov INT,
     FOREIGN KEY (id_img_gov) 
-		REFERENCES imagem_governante (id_img_gov) 
-		ON DELETE CASCADE
+        REFERENCES imagem_governante (id_img_gov) 
+	ON DELETE CASCADE
 );
 
 CREATE TABLE imagem_partido (
-	id_img_part INT PRIMARY KEY,
+    id_img_part INT PRIMARY KEY,
     img_part MEDIUMBLOB
 );
 
 CREATE TABLE partido (
-	id_partido INT PRIMARY KEY,
+    id_partido INT PRIMARY KEY,
     nome_partido VARCHAR(50),
     data_fundacao DATE,
     id_img_part INT,
     FOREIGN KEY (id_img_part) 
-		REFERENCES imagem_partido (id_img_part) 
-		ON DELETE CASCADE
+        REFERENCES imagem_partido (id_img_part) 
+        ON DELETE CASCADE
 );
 
 ALTER TABLE governante
 ADD FOREIGN KEY (id_partido) 
-	REFERENCES partido (id_partido) 
-	ON DELETE SET NULL;
+REFERENCES partido (id_partido) 
+ON DELETE SET NULL;
 
 CREATE TABLE imagem_pais (
-	id_img_pais INT PRIMARY KEY,
+    id_img_pais INT PRIMARY KEY,
     img_pais MEDIUMBLOB
 );
 
@@ -47,8 +47,8 @@ CREATE TABLE pais (
     populacao_milh FLOAT,
     id_img_pais INT,
     FOREIGN KEY (id_img_pais)
-		REFERENCES imagem_pais (id_img_pais)
-		ON DELETE CASCADE
+        REFERENCES imagem_pais (id_img_pais)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE conflito (
